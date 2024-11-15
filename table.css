@@ -1,0 +1,74 @@
+.table-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    width: 100%;
+}
+.table{
+    flex: 2;
+    min-width: 300px;
+    overflow: scroll;
+}
+.table-explain{
+    margin-top: 0;
+    flex: 1;
+    
+    & h2{
+        line-height: 1;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+    & h3{
+        margin-top: 0;
+    }
+}
+.table table {
+    background-color: var(--bg-light-0);
+    border-collapse: collapse;
+}
+
+td + td {
+    border-left: 1px solid var(--bg-light-0); /* Vertical inner borders */
+
+}
+
+tr + tr td {
+    border-top: 1px solid var(--bg-light-0); /* Horizontal inner borders */
+}
+
+th {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+td {
+    padding: .75rem 2rem;
+    font-size: 1rem;
+}
+
+td:last-child, th:last-child {
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+td:first-child, th:first-child {
+    width: 50%;
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+}
+
+
+th, td {
+    text-align: left;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--bg-light-2); /* Light grey tone 1 */
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--bg-light-1); /* Light grey tone 2 */
+}
+
+tbody tr:hover {
+    background-color:var(--bg-light-3); /* Grey tone on hover */
+}

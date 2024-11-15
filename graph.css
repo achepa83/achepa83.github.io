@@ -1,0 +1,77 @@
+#network-wrapper {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 4rem;
+    margin-bottom: 8rem;
+
+    /* Node Styling */
+    --node-bg: hsl(0, 0%, 20%);
+    --node-text: var(--accent4);
+    --node-border: var(--accent1);
+
+    --node-hover: var(--bg);
+    --node-hover-border: var(--accent4);
+    
+    --node-highlight: var(--bg-light-1);
+    --node-highlight-border: var(--accent4);
+
+    --node-font-size: 28;
+
+    --edge-color: var(--accent1);
+    --edge-hover: var(--accent4);
+    --edge-highlight: var(--accent4);
+    --edge-width: 2px;
+}
+
+
+
+
+#network-text{
+    flex: 1;
+    min-width: 320px;
+}
+
+#network-tooltip-wrapper{
+    min-width: 320px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#network {
+    place-self: center;
+    width: 100%;
+    
+    /* height: 60vh; */
+    aspect-ratio: 1 / 1;
+    color: var(--text);
+    border: 1px solid var(--accent1);
+    background-color: var(--bg);
+    position: relative;
+    box-shadow: var(--shadow1);
+}
+
+#network > div > canvas{
+    
+}
+
+#tooltip {
+    font-family: inter tight;
+    font-size: 1rem;
+    line-height: 1.5rem;
+
+    position: relative;
+    background-color: var(--bg);
+    color:var(--text);
+    border: 1px solid var(--accent1);
+    padding: 5px;
+    width: 100%;
+
+    display: none; /* Initially hidden */
+    pointer-events: none; /* Prevents tooltip from interfering with mouse events */
+    z-index: 10; /* Ensure it's above other elements */
+    /transform: translate(-50%, -110%);
+    place-self: center;
+}
