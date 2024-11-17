@@ -22,7 +22,8 @@
     grid-column: 2 / 2;
     flex-wrap: wrap;
     column-gap: 4rem;
-    max-height: 40vh;
+    min-height: 40vh;
+    max-height: 60vh;
     display: flex;
     flex-direction: column;
 }
