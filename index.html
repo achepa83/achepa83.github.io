@@ -8,6 +8,8 @@
     <link href="pie_chart.css" rel="stylesheet">
     <link href="table.css" rel="stylesheet">
     <link href="gallery.css" rel="stylesheet">
+    <link href="map.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <title>Alex Chepa</title>
 
 </head>
@@ -842,11 +844,46 @@
 <h3 style="width: 80%;">Make data explorable</h3>
 
 <div id="network-wrapper">
-    <div id="network-text"><p>Connections can be shown as a graph view like this quick example. <br><br>- Scroll to zoom in and out <br>- Hover over a genre node to see additional information <br>- Click and drag a node <br><br>Connections could be: <br>- Living at the same time <br>- Living in the same area and the same time <br>- Composing in the same genre <br>- Being preferred by the same people <br></p></div>
+    <div id="network-text"><h4>Connections can be shown as a graph view like this quick example.</h4><p>- Scroll to zoom in and out <br>- Hover over a genre node to see additional information <br>- Click and drag a node <br><br>Connections could be: <br>- Living at the same time <br>- Living in the same area and the same time <br>- Composing in the same genre <br>- Being preferred by the same people <br></p></div>
     <div id="network-tooltip-wrapper">
         <div id="network"></div>
         <div id="tooltip" class="tooltip"></div>
     </div>
+</div>
+
+<div id="map-wrapper">
+    <div id="slider-map">
+        <div id="map"></div>
+
+        <div id="slider-container">
+            <div id="outer-slider">
+                <div id="inner-slider">
+                    <div id="start-handle" class="handle"></div>
+                    <div id="end-handle" class="handle"></div>
+                </div>
+            </div>
+            <div id="year-boxes">
+                <input type="number" id="start-year" value="1600" min="1600" max="2024">
+                <input type="number" id="end-year" value="2024" min="1600" max="2024">
+            </div>
+            <div id="filter-options">
+                <label class="checked-label">
+                    <input type="radio" name="filter" value="alive" checked> Alive
+                </label>
+                <label>
+                    <input type="radio" name="filter" value="death-year"> Death Year
+                </label>
+                <label>
+                    <input type="radio" name="filter" value="birth-year"> Birth Year
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="map-text">
+        <h4>When and where were composers born, and when did they live and die?</h4>
+        <p>- Move the whole slider or adjust the start and end points. <br><br>- Scroll over the map to zoom in and see the composer names. <br><br>- Click on a composer to see details.<br><br>- Choose between "Alive", "Death Year" and "Birth Year" during that time frame.</p>
+    </div>
+    
 </div>
 
 
@@ -1152,6 +1189,12 @@
   <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>  
   <script src="graph.js"></script>
 
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="SmoothWheelZoom.js"></script>
+  <script src="map.js"></script>
+  
 
 
 </html>
