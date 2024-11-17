@@ -669,7 +669,7 @@ body.no-scroll {
 .x1 {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
-    background-color: var(--accent1);
+    background-color: var(--text);
     width: 8%;
     height: 80%;
     rotate: 45deg;
@@ -678,7 +678,7 @@ body.no-scroll {
 .x2 {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
-    background-color: var(--accent1);
+    background-color: var(--text);
     width: 8%;
     height: 80%;
     rotate: -45deg;
