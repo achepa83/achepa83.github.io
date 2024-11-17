@@ -52,9 +52,6 @@
     box-shadow: var(--shadow1);
 }
 
-#network > div > canvas{
-    
-}
 
 #tooltip {
     font-family: inter tight;
@@ -73,4 +70,5 @@
     z-index: 10; /* Ensure it's above other elements */
     /transform: translate(-50%, -110%);
     place-self: center;
+    box-shadow: var(--shadow1);
 }
