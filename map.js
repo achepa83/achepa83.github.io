@@ -23,7 +23,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 
-
 let markers = []; // Array to hold current markers
 
 // Define a custom DivIcon
