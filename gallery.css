@@ -57,7 +57,7 @@
 .lightbox-controls button {
     background: none;
     border: none;
-    color: var(--text);
+    color: hsl(20, 0%, 98%);
     cursor: pointer;
     font-size: 4rem;
 }
@@ -72,7 +72,7 @@
     right: 10px;
     background: none;
     border: none;
-    color: var(--text);
+    color: hsl(20, 0%, 98%);
     cursor: pointer;
     font-size: 4rem;
 }
