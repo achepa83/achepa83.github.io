@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- YouTube needs to know which site embeds the player (else: error 153). -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>YouTube player relay</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+	iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+	p { margin: 0; padding: 1em; color: #aaa; font: 14px/1.4 system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<script>
+	/*
+	 * Player relay for YouTube Sidebar Player (Obsidian plugin). iPhone and iPad apps send no web
+	 * address with an embedded YouTube player, and YouTube refuses it with error 153. Loaded from
+	 * here, the player has a real https address. The plugin controls it with the IFrame Player
+	 * API's messages (play, pause, seek …); this page passes them on, both ways:
+	 *
+	 * - from the window that embeds this page → to the YouTube player;
+	 * - from the YouTube player → to the embedding window. To any origin ("*"): iOS apps run under
+	 *   capacitor://localhost, which browsers do not always accept as a target. The messages hold
+	 *   only the player's state and position of a video the embedder chose itself.
+	 *
+	 * Takes v (video id), start (seconds) and autoplay (0/1). Stores and counts nothing.
+	 */
+	const YOUTUBE = 'https://www.youtube-nocookie.com';
+	const query = new URLSearchParams(location.search);
+	const id = query.get('v') || '';
+	if (!/^[\w-]{11}$/.test(id)) {
+		const note = document.createElement('p');
+		note.textContent = 'No valid YouTube video id.';
+		document.body.appendChild(note);
+	} else {
+		const params = new URLSearchParams({
+			enablejsapi: '1',
+			// YouTube posts its events to this page.
+			origin: location.origin,
+			rel: '0',
+			playsinline: '1',
+			autoplay: query.get('autoplay') === '1' ? '1' : '0',
+		});
+		const start = parseInt(query.get('start') || '', 10);
+		if (start > 0) params.set('start', String(start));
+		const frame = document.createElement('iframe');
+		frame.src = YOUTUBE + '/embed/' + id + '?' + params;
+		frame.title = 'YouTube video player';
+		frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+		frame.referrerPolicy = 'strict-origin-when-cross-origin';
+		frame.allowFullscreen = true;
+		document.body.appendChild(frame);
+
+		window.addEventListener('message', (event) => {
+			// The player's messages are JSON text; nothing else is passed on.
+			if (typeof event.data !== 'string' || event.data.length > 100000) return;
+			if (event.source === window.parent && window.parent !== window) {
+				if (frame.contentWindow) frame.contentWindow.postMessage(event.data, YOUTUBE);
+			} else if (event.source === frame.contentWindow && event.origin === YOUTUBE) {
+				window.parent.postMessage(event.data, '*');
+			}
+		});
+	}
+</script>
+</body>
+</html>
