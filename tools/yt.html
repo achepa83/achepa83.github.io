@@ -19,8 +19,8 @@
 	 * Player page for Tweak Utils (Obsidian plugin): iPhone and iPad apps send no web address with
 	 * an embedded YouTube player, and YouTube refuses it with error 153. Loaded from here, the
 	 * player has a real https address. Takes v (video id), start (seconds) and list (playlist).
-	 * Embeds youtube.com (not youtube-nocookie.com), so a device that has its own YouTube login
-	 * may use it. This page stores and counts nothing.
+	 * Embeds youtube-nocookie.com (no YouTube cookies; an iOS app would block them anyway). This
+	 * page stores and counts nothing.
 	 */
 	const query = new URLSearchParams(location.search);
 	const id = query.get('v') || '';
@@ -35,7 +35,7 @@
 		const list = query.get('list') || '';
 		if (/^[\w-]+$/.test(list)) params.set('list', list);
 		const frame = document.createElement('iframe');
-		frame.src = 'https://www.youtube.com/embed/' + id + '?' + params;
+		frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?' + params;
 		frame.title = 'YouTube video player';
 		frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
 		frame.referrerPolicy = 'strict-origin-when-cross-origin';
