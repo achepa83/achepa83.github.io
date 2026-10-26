@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- YouTube needs to know which site embeds the player (else: error 153). -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>YouTube player</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #000; }
+	iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+	p { margin: 0; padding: 1em; color: #aaa; font: 14px/1.4 system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<script>
+	/*
+	 * Player page for Tweak Utils (Obsidian plugin): iPhone and iPad apps send no web address with
+	 * an embedded YouTube player, and YouTube refuses it with error 153. Loaded from here, the
+	 * player has a real https address. Takes v (video id), start (seconds) and list (playlist).
+	 * Nothing is stored or counted.
+	 */
+	const query = new URLSearchParams(location.search);
+	const id = query.get('v') || '';
+	if (!/^[\w-]{11}$/.test(id)) {
+		const note = document.createElement('p');
+		note.textContent = 'No valid YouTube video id.';
+		document.body.appendChild(note);
+	} else {
+		const params = new URLSearchParams({ rel: '0', playsinline: '1' });
+		const start = parseInt(query.get('start') || '', 10);
+		if (start > 0) params.set('start', String(start));
+		const list = query.get('list') || '';
+		if (/^[\w-]+$/.test(list)) params.set('list', list);
+		const frame = document.createElement('iframe');
+		frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?' + params;
+		frame.title = 'YouTube video player';
+		frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+		frame.referrerPolicy = 'strict-origin-when-cross-origin';
+		frame.allowFullscreen = true;
+		document.body.appendChild(frame);
+	}
+</script>
+</body>
+</html>
